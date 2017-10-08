@@ -20,11 +20,18 @@ function load() {
     var database = firebase.database();
     database.ref().on("value", function(snapshot) {
         if (snapshot.val()) {
-            // console.log(snapshot.val());
-            if (snapshot.val().players.one === undefined || snapshot.val().players.two === undefined) {
-                database.ref("/turn").remove();
+            try {
+                if (snapshot.val().players.one === undefined || snapshot.val().players.two === undefined) {
+                    database.ref("/turn").remove();
+                }
+                else game.twoPlayers = true;
             }
-            else game.twoPlayers = true;
+            catch (e) {}
+            if (game.playerName != "") {
+                database.ref("chat").onDisconnect().update({
+                    latest: "- - - " + game.playerName + " has disconnected - - -"
+                })
+            }
         }
     });
     
@@ -138,6 +145,13 @@ function load() {
             }
             else game.infoMessage.innerHTML = "It's Your Turn!";
         }
+    })
+
+    database.ref("chat").on("value", function(snapshot) {
+        try {
+            if(game.playerName != "") game.messages.value += snapshot.val().latest + "\n";
+        }
+        catch (e) {}
     })
     
     var game = {
@@ -342,6 +356,13 @@ function load() {
                     })
                 }
             })
+        },
+        addMessage: function(message) {
+            game.messageInput.value = "";
+            var userMessage = game.playerName + ": " + message;
+            database.ref("chat").update({
+                latest: userMessage
+            })
         }
     }
     
@@ -352,5 +373,10 @@ function load() {
 
     $(".moveSelection").on("click", function(e) {
         game.makeSelection(e.currentTarget.innerHTML);
+    })
+
+    game.sendMessageSubmitButton.addEventListener("click", function(e) {
+        e.preventDefault();
+        if (game.playerName != "") game.addMessage(game.messageInput.value);
     })
 }
