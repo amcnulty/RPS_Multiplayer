@@ -18,7 +18,7 @@
     </header>
     <div id="addPlayerDiv">
         <form id="addPlayerForm">
-            <input type="text" id="newPlayerInput" placeholder="Enter Your Name">
+            <input type="text" id="newPlayerInput" placeholder="Enter Your Name" maxlength="12">
             <br>
             <input type="submit" id="newPlayerSubmitButton" value="JOIN">
         </form>
@@ -30,14 +30,18 @@
             <p class="moveSelection" id="playerOneRock">Rock</p>
             <p class="moveSelection" id="playerOnePaper">Paper</p>
             <p class="moveSelection" id="playerOneScissors">Scissors</p>
+            <p class="moveChoice" id="playerOneMoveChoice">Rock</p>
             <p id="playerOneWinLoss" class="winLoss">Wins: <span id="playerOneWins"></span> Losses: <span id="playerOneLosses"></span></p>
         </div>
-        <div class="playerBox" id="InfoBox"></div>
+        <div class="playerBox" id="InfoBox">
+            <p id="victoryMessage"></p>
+        </div>
         <div class="playerBox" id="playerTwoBox">
             <h3 class="playerName" id="playerTwoName">Waiting for player 2</h3>
             <p class="moveSelection" id="playerTwoRock">Rock</p>
             <p class="moveSelection" id="playerTwoPaper">Paper</p>
             <p class="moveSelection" id="playerTwoScissors">Scissors</p>
+            <p class="moveChoice" id="playerTwoMoveChoice"></p>
             <p id="playerTwoWinLoss" class="winLoss">Wins: <span id="playerTwoWins"></span> Losses: <span id="playerTwoLosses"></span></p>
         </div>
     </div>

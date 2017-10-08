@@ -29,7 +29,6 @@ function load() {
     });
     
     database.ref("players").on("value", function(snapshot) {
-        // console.log("players updating");
         if(game.playerNumber === 1) {
             database.ref("players/one").onDisconnect().remove();
         }
@@ -40,30 +39,86 @@ function load() {
             if (snapshot.numChildren() === 2) {
                 if (game.playerNumber === 1) {
                     game.opponentName = snapshot.val().two.name;
+                    if (parseInt(snapshot.val().one.wins) > game.wins) {
+                        console.log("Player 1 wins!");
+                        game.wins = snapshot.val().one.wins;
+                        game.victoryMessage.innerHTML = "You Won!";
+                        game.victoryMessage.style.display = "block";
+                        setTimeout(function() {
+                            game.victoryMessage.style.display = "none";
+                            game.displayChoices(1);
+                        }, 2000);
+                    }
+                    else if (parseInt(snapshot.val().one.losses) > game.losses) {
+                        console.log("Player 1 looses");
+                        game.losses = snapshot.val().one.losses;
+                        game.victoryMessage.innerHTML = snapshot.val().two.name + " won!";
+                        game.victoryMessage.style.display = "block";
+                        setTimeout(function() {
+                            game.victoryMessage.style.display = "none";
+                            game.displayChoices(1);
+                        }, 2000);
+                    }
+                    else if (parseInt(snapshot.val().one.ties) > game.ties) {
+                        game.ties = snapshot.val().one.ties;
+                        game.victoryMessage.innerHTML = "TIE!";
+                        game.victoryMessage.style.display = "block";
+                        setTimeout(function() {
+                            game.victoryMessage.style.display = "none";
+                            game.displayChoices(1)
+                        }, 2000);
+                    }
                 }
-                else game.opponentName = snapshot.val().one.name;
+                else {
+                    game.opponentName = snapshot.val().one.name;
+                    if (parseInt(snapshot.val().two.wins) > game.wins) {
+                        console.log("Player 2 wins!");
+                        game.wins = snapshot.val().two.wins;
+                        game.victoryMessage.innerHTML = "You Won!";
+                        game.victoryMessage.style.display = "block";
+                        setTimeout(function() {
+                            game.victoryMessage.style.display = "none";
+                            game.displayChoices(2);
+                        }, 2000);
+                    }
+                    else if (parseInt(snapshot.val().two.losses) > game.losses) {
+                        console.log("Player 2 looses");
+                        game.losses = snapshot.val().two.losses;
+                        game.victoryMessage.innerHTML = snapshot.val().one.name + " won!";
+                        game.victoryMessage.style.display = "block";
+                        setTimeout(function() {
+                            game.victoryMessage.style.display = "none";
+                            game.displayChoices(2);
+                        }, 2000);
+                    }
+                    else if (parseInt(snapshot.val().two.ties) > game.ties) {
+                        game.ties = snapshot.val().two.ties;
+                        game.victoryMessage.innerHTML = "TIE!";
+                        game.victoryMessage.style.display = "block";
+                        setTimeout(function() {
+                            game.victoryMessage.style.display = "none";
+                            game.displayChoices(2);
+                        }, 2000);
+                    }
+                }
             }
             else if (snapshot.numChildren() === 1 && game.playerNumber != 0) {
                 game.infoMessage.innerHTML = "Waiting for another player to join";
             }
             if (snapshot.val().one != undefined) {
-                // console.log("updating player 1 slot with: " + snapshot.val().one.name);
-                game.fillPlayerSlot(1, snapshot.val().one.name);
+                game.playerOneName.innerHTML = snapshot.val().one.name;
                 game.playerOneWins.innerHTML = snapshot.val().one.wins;
                 game.playerOneLosses.innerHTML = snapshot.val().one.losses;
             }
             else if (snapshot.val().one === undefined) {
-                // console.log("Resetting player one slot");
                 game.resetPlayerSlot(1);
             }
             if (snapshot.val().two != undefined) {
-                // console.log("updating player 2 slot with: " + snapshot.val().two.name);
-                game.fillPlayerSlot(2, snapshot.val().two.name);
+                game.playerTwoName.innerHTML = snapshot.val().two.name;
                 game.playerTwoWins.innerHTML = snapshot.val().two.wins;
                 game.playerTwoLosses.innerHTML = snapshot.val().two.losses;
             }
             else if (snapshot.val().two === undefined) {
-                // console.log("Restting player two slot");
                 game.resetPlayerSlot(2);
             }
         }
@@ -92,6 +147,8 @@ function load() {
         twoPlayers: false,
         wins: 0,
         losses: 0,
+        ties: 0,
+        victoryMessage: document.getElementById("victoryMessage"),
         infoMessage: document.getElementById("infoMessage"),
         newPlayerInput: document.getElementById("newPlayerInput"),
         newPlayerSubmitButton: document.getElementById("newPlayerSubmitButton"),
@@ -99,6 +156,7 @@ function load() {
         playerOneRock: document.getElementById("playerOneRock"),
         playerOnePaper: document.getElementById("playerOnePaper"),
         playerOneScissors: document.getElementById("playerOneScissors"),
+        playerOneMoveChoice: document.getElementById("playerOneMoveChoice"),
         playerOneWinLoss: document.getElementById("playerOneWinLoss"),
         playerOneWins: document.getElementById("playerOneWins"),
         playerOneLosses: document.getElementById("playerOneLosses"),
@@ -106,6 +164,7 @@ function load() {
         playerTwoRock: document.getElementById("playerTwoRock"),
         playerTwoPaper: document.getElementById("playerTwoPaper"),
         playerTwoScissors: document.getElementById("playerTwoScissors"),
+        playerTwoMoveChoice: document.getElementById("playerTwoMoveChoice"),
         playerTwoWinLoss: document.getElementById("playerTwoWinLoss"),
         playerTwoWins: document.getElementById("playerTwoWins"),
         playerTwoLosses: document.getElementById("playerTwoLosses"),
@@ -133,7 +192,8 @@ function load() {
                     database.ref("players/one").set({
                         name: playerName,
                         wins: 0,
-                        losses: 0
+                        losses: 0,
+                        ties: 0
                     });
                 }
                 else {
@@ -141,7 +201,8 @@ function load() {
                     database.ref("players/two").set({
                         name: playerName,
                         wins: 0,
-                        losses: 0
+                        losses: 0,
+                        ties: 0
                     });
                 }
                 game.checkPlayers();
@@ -152,17 +213,13 @@ function load() {
             if (slot === 1) {
                 game.playerOneName.innerHTML = name;
                 if (slot === game.playerNumber) {
-                    game.playerOneRock.style.display = "block";
-                    game.playerOnePaper.style.display = "block";
-                    game.playerOneScissors.style.display = "block";
+                    game.displayChoices(slot);
                 }
             }
             else {
                 game.playerTwoName.innerHTML = name;
                 if (slot === game.playerNumber) {
-                    game.playerTwoRock.style.display = "block";
-                    game.playerTwoPaper.style.display = "block";
-                    game.playerTwoScissors.style.display = "block";
+                    game.displayChoices(slot);
                 }
             }
             game.playerOneWinLoss.style.display = "block";
@@ -182,21 +239,46 @@ function load() {
             }
         },
         setTurn: function(turn) {
-            database.ref("turn").set(1);
-            // if (game.playerNumber === turn) {
-                // infoMessage.innerHTML = "It's your turn!";
-            // }
-            // else infoMessage.innerHTML = "Waiting for " + game.opponentName;
+            database.ref("turn").set(turn);
+        },
+        displayChoices: function(player) {
+            if (player === 1) {
+                game.playerOneRock.style.display = "block";
+                game.playerOnePaper.style.display = "block";
+                game.playerOneScissors.style.display = "block";
+                game.playerOneMoveChoice.style.display = "none";
+            }
+            else {
+                game.playerTwoRock.style.display = "block";
+                game.playerTwoPaper.style.display = "block";
+                game.playerTwoScissors.style.display = "block";
+                game.playerTwoMoveChoice.style.display = "none";
+            }
+        },
+        displayMove: function(player, choice) {
+            if (player === 1) {
+                game.playerOneRock.style.display = "none";
+                game.playerOnePaper.style.display = "none";
+                game.playerOneScissors.style.display = "none";
+                game.playerOneMoveChoice.style.display = "block";
+                game.playerOneMoveChoice.innerHTML = choice;
+            }
+            else {
+                game.playerTwoRock.style.display = "none";
+                game.playerTwoPaper.style.display = "none";
+                game.playerTwoScissors.style.display = "none";
+                game.playerTwoMoveChoice.style.display = "block";
+                game.playerTwoMoveChoice.innerHTML = choice;
+            }
         },
         makeSelection: function(choice) {
             database.ref().once("value").then(function(snapshot) {
                 if (snapshot.val().turn === game.playerNumber) {
-                    // console.log("Player " + game.playerNumber + " chose: " + choice);
                     if (game.playerNumber === 1) {
                         database.ref("players/one").update({
                             choice: choice
                         });
-                        database.ref("turn").set(2);
+                        game.setTurn(2);
                     }
                     else {
                         database.ref("players/two").update({
@@ -206,6 +288,7 @@ function load() {
                     if (game.playerNumber === 2) {
                         game.checkVictory();
                     }
+                    game.displayMove(game.playerNumber, choice);
                 }
             })
         },
@@ -213,20 +296,18 @@ function load() {
             database.ref("/players").once("value").then(function(snapshot) {
                 var p1Choice = snapshot.val().one.choice;
                 var p2Choice = snapshot.val().two.choice;
-                if (p1Choice === p2Choice) console.log("TIE");
+                if (p1Choice === p2Choice) game.changeScore(-1);
                 else {
                     var userChoice = choices[p1Choice];
                     if (userChoice.defeates.indexOf(p2Choice) > -1) {
-                        console.log("Player 1 wins with: " + p1Choice);
                         game.changeScore(1);
                     }
                     else {
-                        console.log("Player 2 wins with: " + p2Choice);
                         game.changeScore(2);
                     }
                 }
             });
-            database.ref("turn").set(1);
+            game.setTurn(1);
         },
         changeScore: function(winner) {
             database.ref("players").once("value", function(snapshot) {
@@ -240,7 +321,7 @@ function load() {
                         losses: ++newLosses
                     })
                 }
-                else {
+                else if (winner === 2) {
                     var newWins = snapshot.val().two.wins;
                     var newLosses = snapshot.val().one.losses;
                     database.ref("players/one").update({
@@ -248,6 +329,16 @@ function load() {
                     })
                     database.ref("players/two").update({
                         wins: ++newWins
+                    })
+                }
+                else if (winner === -1) {
+                    var p1NewTies = snapshot.val().one.ties;
+                    var p2NewTies = snapshot.val().two.ties;
+                    database.ref("players/one").update({
+                        ties: ++p1NewTies
+                    })
+                    database.ref("players/two").update({
+                        ties: ++p2NewTies
                     })
                 }
             })
@@ -260,7 +351,6 @@ function load() {
     });
 
     $(".moveSelection").on("click", function(e) {
-        // console.log(e.currentTarget.innerHTML);
         game.makeSelection(e.currentTarget.innerHTML);
     })
 }

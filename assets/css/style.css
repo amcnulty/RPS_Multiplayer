@@ -42,6 +42,21 @@ h1 {
     display: none;
 }
 
+.moveChoice {
+    display: none;
+    position: absolute;
+    font-size: 5em;
+    margin: 0px;
+    padding: 0px;
+    top: 50%;
+    left: 50%;
+    -webkit-transform: translate(-50%, -50%);
+    -moz-transform: translate(-50%, -50%);
+    -ms-transform: translate(-50%, -50%);
+    -o-transform: translate(-50%, -50%);
+    transform: translate(-50%, -50%);
+}
+
 .winLoss {
     display: none;
     position: absolute;
@@ -52,6 +67,19 @@ h1 {
     -ms-transform: translateX(-50%);
     -o-transform: translateX(-50%);
     transform: translateX(-50%);
+}
+
+#victoryMessage {
+    position: absolute;
+    font-size: 2em;
+    top: 50%;
+    left: 50%;
+    margin: 0px;
+    -webkit-transform: translate(-50%, -50%);
+    -moz-transform: translate(-50%, -50%);
+    -ms-transform: translate(-50%, -50%);
+    -o-transform: translate(-50%, -50%);
+    transform: translate(-50%, -50%);
 }
 
 #messageDiv {
