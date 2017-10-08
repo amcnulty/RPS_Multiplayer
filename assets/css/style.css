@@ -39,9 +39,11 @@ h1 {
 
 .moveSelection {
     cursor: pointer;
+    display: none;
 }
 
 .winLoss {
+    display: none;
     position: absolute;
     bottom: 0px;
     left: 50%;
