@@ -5,6 +5,65 @@ html, body {
     font-size: 16px;
 }
 
+header {
+    width: 100%;
+    height: 60px;
+    line-height: 60px;
+    text-align: center;
+}
+
 h1 {
-    color: red;
+    margin: 0px;
+}
+
+#addPlayerDiv {
+    width: 50%;
+    margin: 0 auto;
+    text-align: center;
+}
+
+#playerDiv {
+    width: 80%;
+    margin: 0 auto;
+    text-align: center;
+}
+
+.playerBox {
+    position: relative;
+    width: 33.33%;
+    height: 225px;
+    float: left;
+    border: 2px solid black;
+    box-sizing: border-box;
+}
+
+.moveSelection {
+    cursor: pointer;
+}
+
+.winLoss {
+    position: absolute;
+    bottom: 0px;
+    left: 50%;
+    -webkit-transform: translateX(-50%);
+    -moz-transform: translateX(-50%);
+    -ms-transform: translateX(-50%);
+    -o-transform: translateX(-50%);
+    transform: translateX(-50%);
+}
+
+#messageDiv {
+    width: 50%;
+    margin: 0 auto;
+}
+
+#messages {
+    width: 100%;
+    height: 400px;
+    box-sizing: border-box;
+}
+
+#messageInput {
+    width: 100%;
+    box-sizing: border-box;
 }

@@ -13,7 +13,41 @@
     <script src="https://www.gstatic.com/firebasejs/4.5.0/firebase.js"></script>
 </head>
 <body>
-    <h1>Hello RPS Multiplayer</h1>
+    <header>
+        <h1>RPS Multiplayer</h1>
+    </header>
+    <div id="addPlayerDiv">
+        <form id="addPlayerForm">
+            <input type="text" id="newPlayerInput" placeholder="Enter Your Name">
+            <br>
+            <input type="submit" id="newPlayerSubmitButton" value="JOIN">
+        </form>
+    </div>
+    <div id="playerDiv">
+        <div class="playerBox" id="playerOneBox">
+            <h3 class="playerName" id="playerOneName">Player 1</h3>
+            <p class="moveSelection" id="playerOneRock">Rock</p>
+            <p class="moveSelection" id="playerOnePaper">Paper</p>
+            <p class="moveSelection" id="playerOneScissors">Scissors</p>
+            <p id="playerOneWinLoss" class="winLoss">Wins: <span id="playerOneWins"></span> Losses: <span id="playerOneLosses"></span></p>
+        </div>
+        <div class="playerBox" id="InfoBox"></div>
+        <div class="playerBox" id="playerTwoBox">
+            <h3 class="playerName" id="playerTwoName">Player 2</h3>
+            <p class="moveSelection" id="playerTwoRock">Rock</p>
+            <p class="moveSelection" id="playerTwoPaper">Paper</p>
+            <p class="moveSelection" id="playerTwoScissors">Scissors</p>
+            <p id="playerTwoWinLoss" class="winLoss">Wins: <span id="playerTwoWins"></span> Losses: <span id="playerTwoLosses"></span></p>
+        </div>
+    </div>
+    <div id="messageDiv">
+        <form id="messagePlayerForm">
+            <textarea name="messages" id="messages" cols="30" rows="10"></textarea>
+            <br>
+            <input type="text" id="messageInput" placeholder="Message Player...">
+            <input type="submit" value="SEND">
+        </form>
+    </div>
     <script src="assets/javascript/game.js" type="text/javascript"></script>
 </body>
 </html>
