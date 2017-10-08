@@ -149,9 +149,14 @@ function load() {
 
     database.ref("chat").on("value", function(snapshot) {
         try {
-            if(game.playerName != "") game.messages.value += snapshot.val().latest + "\n";
+            if(game.playerName != "") {
+                game.messages.value += snapshot.val().latest + "\n";
+            }
         }
         catch (e) {}
+        setTimeout(function() {
+            database.ref("chat").remove();
+        }, 100);
     })
     
     var game = {
@@ -186,17 +191,20 @@ function load() {
         messageInput: document.getElementById("messageInput"),
         sendMessageSubmitButton: document.getElementById("sendMessageSubmitButton"),
         addPlayer: function(playerName) {
-            game.playerName = playerName;
+            // game.playerName = playerName;
             database.ref().once("value").then(function(snapshot) {
                 try {
                     if (snapshot.val().players.one === undefined) {
+                        game.playerName = playerName;
                         setPlayerNumber(1);
                     }
-                    else {
+                    else if(snapshot.val().players.two === undefined) {
+                        game.playerName = playerName;
                         setPlayerNumber(2);
                     }
                 }
                 catch (e) {
+                    game.playerName = playerName;
                     setPlayerNumber(1);
                 }
             });
