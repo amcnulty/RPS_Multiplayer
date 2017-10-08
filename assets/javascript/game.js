@@ -20,7 +20,7 @@ function load() {
     var database = firebase.database();
     database.ref().on("value", function(snapshot) {
         if (snapshot.val()) {
-            console.log(snapshot.val());
+            // console.log(snapshot.val());
             if (snapshot.val().players.one === undefined || snapshot.val().players.two === undefined) {
                 database.ref("/turn").remove();
             }
@@ -29,7 +29,7 @@ function load() {
     });
     
     database.ref("players").on("value", function(snapshot) {
-        console.log("players updating");
+        // console.log("players updating");
         if(game.playerNumber === 1) {
             database.ref("players/one").onDisconnect().remove();
         }
@@ -37,33 +37,58 @@ function load() {
             database.ref("players/two").onDisconnect().remove();
         }
         try {
+            if (snapshot.numChildren() === 2) {
+                if (game.playerNumber === 1) {
+                    game.opponentName = snapshot.val().two.name;
+                }
+                else game.opponentName = snapshot.val().one.name;
+            }
+            else if (snapshot.numChildren() === 1 && game.playerNumber != 0) {
+                game.infoMessage.innerHTML = "Waiting for another player to join";
+            }
             if (snapshot.val().one != undefined) {
-                console.log("updating player 1 slot with: " + snapshot.val().one.name);
+                // console.log("updating player 1 slot with: " + snapshot.val().one.name);
                 game.fillPlayerSlot(1, snapshot.val().one.name);
                 game.playerOneWins.innerHTML = snapshot.val().one.wins;
                 game.playerOneLosses.innerHTML = snapshot.val().one.losses;
             }
             else if (snapshot.val().one === undefined) {
-                console.log("Resetting player one slot");
+                // console.log("Resetting player one slot");
                 game.resetPlayerSlot(1);
             }
             if (snapshot.val().two != undefined) {
-                console.log("updating player 2 slot with: " + snapshot.val().two.name);
+                // console.log("updating player 2 slot with: " + snapshot.val().two.name);
                 game.fillPlayerSlot(2, snapshot.val().two.name);
                 game.playerTwoWins.innerHTML = snapshot.val().two.wins;
                 game.playerTwoLosses.innerHTML = snapshot.val().two.losses;
             }
             else if (snapshot.val().two === undefined) {
-                console.log("Restting player two slot");
+                // console.log("Restting player two slot");
                 game.resetPlayerSlot(2);
             }
         }
         catch (e) {}
     });
+
+    database.ref("turn").on("value", function(snapshot) {
+        if (snapshot.val() === 1) {
+            if (game.playerNumber === 1) {
+                game.infoMessage.innerHTML = "It's Your Turn!";
+            }
+            else game.infoMessage.innerHTML = "Waiting for " + game.opponentName;
+        }
+        if (snapshot.val() === 2) {
+            if (game.playerNumber === 1) {
+                game.infoMessage.innerHTML = "Waiting for " + game.opponentName;
+            }
+            else game.infoMessage.innerHTML = "It's Your Turn!";
+        }
+    })
     
     var game = {
         playerNumber: 0,
         playerName: "",
+        opponentName: "",
         twoPlayers: false,
         wins: 0,
         losses: 0,
@@ -145,10 +170,10 @@ function load() {
         },
         resetPlayerSlot: function(slot) {
             if (slot === 1) {
-                game.playerOneName.innerHTML = "Player 1";
+                game.playerOneName.innerHTML = "Waiting for player 1";
             }
             else {
-                game.playerTwoName.innerHTML = "Player 2";
+                game.playerTwoName.innerHTML = "Waiting for player 2";
             }
         },
         checkPlayers: function() {
@@ -158,11 +183,15 @@ function load() {
         },
         setTurn: function(turn) {
             database.ref("turn").set(1);
+            // if (game.playerNumber === turn) {
+                // infoMessage.innerHTML = "It's your turn!";
+            // }
+            // else infoMessage.innerHTML = "Waiting for " + game.opponentName;
         },
         makeSelection: function(choice) {
             database.ref().once("value").then(function(snapshot) {
                 if (snapshot.val().turn === game.playerNumber) {
-                    console.log("Player " + game.playerNumber + " chose: " + choice);
+                    // console.log("Player " + game.playerNumber + " chose: " + choice);
                     if (game.playerNumber === 1) {
                         database.ref("players/one").update({
                             choice: choice
@@ -231,7 +260,7 @@ function load() {
     });
 
     $(".moveSelection").on("click", function(e) {
-        console.log(e.currentTarget.innerHTML);
+        // console.log(e.currentTarget.innerHTML);
         game.makeSelection(e.currentTarget.innerHTML);
     })
 }
