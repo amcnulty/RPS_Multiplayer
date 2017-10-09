@@ -47,31 +47,38 @@ function load() {
                 if (game.playerNumber === 1) {
                     game.opponentName = snapshot.val().two.name;
                     if (parseInt(snapshot.val().one.wins) > game.wins) {
-                        console.log("Player 1 wins!");
+                        game.playerTwoMoveChoice.innerHTML = snapshot.val().two.choice;
+                        game.playerTwoMoveChoice.style.display = "block";
                         game.wins = snapshot.val().one.wins;
                         game.victoryMessage.innerHTML = "You Won!";
                         game.victoryMessage.style.display = "block";
                         setTimeout(function() {
                             game.victoryMessage.style.display = "none";
+                            game.playerTwoMoveChoice.style.display = "none";
                             game.displayChoices(1);
                         }, 2000);
                     }
                     else if (parseInt(snapshot.val().one.losses) > game.losses) {
-                        console.log("Player 1 looses");
+                        game.playerTwoMoveChoice.innerHTML = snapshot.val().two.choice;
+                        game.playerTwoMoveChoice.style.display = "block";
                         game.losses = snapshot.val().one.losses;
                         game.victoryMessage.innerHTML = snapshot.val().two.name + " won!";
                         game.victoryMessage.style.display = "block";
                         setTimeout(function() {
                             game.victoryMessage.style.display = "none";
+                            game.playerTwoMoveChoice.style.display = "none";
                             game.displayChoices(1);
                         }, 2000);
                     }
                     else if (parseInt(snapshot.val().one.ties) > game.ties) {
+                        game.playerTwoMoveChoice.innerHTML = snapshot.val().two.choice;
+                        game.playerTwoMoveChoice.style.display = "block";
                         game.ties = snapshot.val().one.ties;
                         game.victoryMessage.innerHTML = "TIE!";
                         game.victoryMessage.style.display = "block";
                         setTimeout(function() {
                             game.victoryMessage.style.display = "none";
+                            game.playerTwoMoveChoice.style.display = "none";
                             game.displayChoices(1)
                         }, 2000);
                     }
@@ -79,31 +86,38 @@ function load() {
                 else {
                     game.opponentName = snapshot.val().one.name;
                     if (parseInt(snapshot.val().two.wins) > game.wins) {
-                        console.log("Player 2 wins!");
+                        game.playerOneMoveChoice.innerHTML = snapshot.val().one.choice;
+                        game.playerOneMoveChoice.style.display = "block";
                         game.wins = snapshot.val().two.wins;
                         game.victoryMessage.innerHTML = "You Won!";
                         game.victoryMessage.style.display = "block";
                         setTimeout(function() {
                             game.victoryMessage.style.display = "none";
+                            game.playerOneMoveChoice.style.display = "none";
                             game.displayChoices(2);
                         }, 2000);
                     }
                     else if (parseInt(snapshot.val().two.losses) > game.losses) {
-                        console.log("Player 2 looses");
+                        game.playerOneMoveChoice.innerHTML = snapshot.val().one.choice;
+                        game.playerOneMoveChoice.style.display = "block";
                         game.losses = snapshot.val().two.losses;
                         game.victoryMessage.innerHTML = snapshot.val().one.name + " won!";
                         game.victoryMessage.style.display = "block";
                         setTimeout(function() {
                             game.victoryMessage.style.display = "none";
+                            game.playerOneMoveChoice.style.display = "none";
                             game.displayChoices(2);
                         }, 2000);
                     }
                     else if (parseInt(snapshot.val().two.ties) > game.ties) {
+                        game.playerOneMoveChoice.innerHTML = snapshot.val().one.choice;
+                        game.playerOneMoveChoice.style.display = "block";
                         game.ties = snapshot.val().two.ties;
                         game.victoryMessage.innerHTML = "TIE!";
                         game.victoryMessage.style.display = "block";
                         setTimeout(function() {
                             game.victoryMessage.style.display = "none";
+                            game.playerOneMoveChoice.style.display = "none";
                             game.displayChoices(2);
                         }, 2000);
                     }
