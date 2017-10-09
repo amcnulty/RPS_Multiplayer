@@ -167,9 +167,11 @@ h1 {
 
 #messageInput {
     width: calc(100% - 56px);
+    height: 26px;
+    margin: 0px;
+    padding: 2px 80px 2px 6px;
     background-color: #DDCECC;
     font-size: 1em;
-    padding: 2px 80px 2px 6px;
     border: 2px solid #6D524F;
     box-sizing: border-box;
 }
@@ -179,9 +181,7 @@ h1 {
 }
 
 #sendMessageSubmitButton {
-    /* position: relative;
-    top: -24px;
-    right: 2px; */
+    width: 55px;
     height: 26px;
     font-size: 1em;
     color: #DDCECC;
