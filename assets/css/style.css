@@ -3,6 +3,8 @@ html, body {
     padding: 0px;
     font-family: Arial, Helvetica, sans-serif;
     font-size: 16px;
+    background-color: #B6A19E;
+    color: #FFF8F7;
 }
 
 header {
@@ -22,6 +24,52 @@ h1 {
     text-align: center;
 }
 
+#newPlayerInput {
+    padding: 0px 4px 0px 4px;
+    font-size: 1em;
+    background-color: transparent;
+    border: none;
+    outline: none;
+    color: inherit;
+    border-bottom: 2px solid #6D524F;
+    transition: all .3s ease;
+}
+
+#newPlayerInput:focus {
+    border-bottom: 2px solid #6C648B;
+}
+
+::-moz-placeholder {
+    color: #DDCECC;
+}
+
+:-ms-input-placeholder {
+    color: #DDCECC;
+}
+
+::-webkit-input-placeholder {
+    color: #DDCECC;
+}
+
+#newPlayerSubmitButton {
+    position: relative;
+    top: -9px;
+    background-color: transparent;
+    border: 3px solid #6D524F;
+    color: #6D524F;
+    font-weight: bold;
+    font-size: 1em;
+    padding: 8px;
+    cursor: pointer;
+    transition: all .3s ease;
+}
+
+#newPlayerSubmitButton:hover {
+    background-color: #76887B;
+    border-color: #76887B;
+    color: inherit;
+}
+
 #playerDiv {
     width: 80%;
     margin: 0 auto;
@@ -30,22 +78,33 @@ h1 {
 
 .playerBox {
     position: relative;
-    width: 33.33%;
+    width: calc(33.33% - 10px);
+    margin: 0px 5px 0px 5px;
     height: 225px;
     float: left;
-    border: 2px solid black;
+    border: 2px solid #6D524F;
     box-sizing: border-box;
 }
 
+.highlight {
+    border-color: #FBA100;
+}
+
 .moveSelection {
-    cursor: pointer;
     display: none;
+    margin: 5px;
+    cursor: pointer;
+}
+
+.moveSelection:hover {
+    text-decoration: underline;
+    font-weight: bold;
 }
 
 .moveChoice {
     display: none;
     position: absolute;
-    font-size: 5em;
+    font-size: 4em;
     margin: 0px;
     padding: 0px;
     top: 50%;
@@ -90,11 +149,98 @@ h1 {
 #messages {
     width: 100%;
     height: 250px;
+    margin-top: 10px;
+    padding: 4px;
     resize: none;
+    font-size: 1em;
+    background-color: #DDCECC;
+    outline: none;
+    border: 2px solid #6D524F;
     box-sizing: border-box;
 }
 
 #messageInput {
     width: 100%;
+    background-color: #DDCECC;
+    font-size: 1em;
+    padding: 2px 80px 2px 6px;
+    border: 2px solid #6D524F;
     box-sizing: border-box;
+}
+
+#messageInput::-webkit-input-placeholder {
+    color: #6D524F;
+}
+
+#sendMessageSubmitButton {
+    position: relative;
+    top: -24px;
+    right: 2px;
+    height: 22px;
+    font-size: 1em;
+    color: #DDCECC;
+    font-weight: 600;
+    cursor: pointer;
+    border: none;
+    float: right;
+    background-color: #6C648B;
+    box-sizing: border-box;
+}
+
+@media screen and (max-width: 1279px) and (min-width: 601px) {
+    #newPlayerSubmitButton:hover {
+        background-color: transparent;
+        border-color: #6D524F;
+        color: #6D524F;
+    }
+
+    .moveSelection:hover {
+        text-decoration: none;
+        font-weight: unset;
+    }
+
+    #messageDiv {
+        width: 80%;
+    }
+
+    .moveChoice {
+        font-size: 2em;
+    }
+
+    .playerName {
+        font-size: 1em;
+    }
+}
+
+@media screen and (max-width: 600px) {
+    #newPlayerSubmitButton:hover {
+        background-color: transparent;
+        border-color: #6D524F;
+        color: #6D524F;
+    }
+
+    .moveSelection:hover {
+        text-decoration: none;
+        font-weight: unset;
+    }
+
+    #messageDiv {
+        width: 80%;
+    }
+
+    .moveChoice {
+        font-size: 2em;
+    }
+
+    .playerName {
+        font-size: 1em;
+    }
+
+    #newPlayerSubmitButton {
+        top: 5px;
+    }
+
+    .playerBox {
+        width: 100%;
+    }
 }

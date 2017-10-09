@@ -148,12 +148,18 @@ function load() {
 
     database.ref("turn").on("value", function(snapshot) {
         if (snapshot.val() === 1) {
+            $(playerOneBox).addClass("highlight");
+            $(playerTwoBox).removeClass("highlight");
             if (game.playerNumber === 1) {
                 game.infoMessage.innerHTML = "It's Your Turn!";
             }
-            else game.infoMessage.innerHTML = "Waiting for " + game.opponentName;
+            else {
+                game.infoMessage.innerHTML = "Waiting for " + game.opponentName;
+            }
         }
         if (snapshot.val() === 2) {
+            $(playerTwoBox).addClass("highlight");
+            $(playerOneBox).removeClass("highlight");
             if (game.playerNumber === 1) {
                 game.infoMessage.innerHTML = "Waiting for " + game.opponentName;
             }
@@ -165,6 +171,7 @@ function load() {
         try {
             if(game.playerName != "") {
                 game.messages.value += snapshot.val().latest + "\n";
+                game.messages.scrollTop = game.messages.scrollHeight;
             }
         }
         catch (e) {}
@@ -185,6 +192,7 @@ function load() {
         infoMessage: document.getElementById("infoMessage"),
         newPlayerInput: document.getElementById("newPlayerInput"),
         newPlayerSubmitButton: document.getElementById("newPlayerSubmitButton"),
+        playerOneBox: document.getElementById("playerOneBox"),
         playerOneName: document.getElementById("playerOneName"),
         playerOneRock: document.getElementById("playerOneRock"),
         playerOnePaper: document.getElementById("playerOnePaper"),
@@ -193,6 +201,7 @@ function load() {
         playerOneWinLoss: document.getElementById("playerOneWinLoss"),
         playerOneWins: document.getElementById("playerOneWins"),
         playerOneLosses: document.getElementById("playerOneLosses"),
+        playerTwoBox: document.getElementById("playerTwoBox"),
         playerTwoName: document.getElementById("playerTwoName"),
         playerTwoRock: document.getElementById("playerTwoRock"),
         playerTwoPaper: document.getElementById("playerTwoPaper"),
@@ -279,9 +288,9 @@ function load() {
         },
         displayChoices: function(player) {
             if (player === 1) {
-                game.playerOneRock.style.display = "block";
-                game.playerOnePaper.style.display = "block";
-                game.playerOneScissors.style.display = "block";
+                game.playerOneRock.style.display = "inline-block";
+                game.playerOnePaper.style.display = "inline-block";
+                game.playerOneScissors.style.display = "inline-block";
                 game.playerOneMoveChoice.style.display = "none";
             }
             else {
