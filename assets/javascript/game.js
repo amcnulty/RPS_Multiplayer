@@ -430,10 +430,15 @@ function load() {
 
     $(".moveSelection").on("click", function(e) {
         game.makeSelection(e.currentTarget.innerHTML);
-    })
+    });
 
     game.sendMessageSubmitButton.addEventListener("click", function(e) {
         e.preventDefault();
         if (game.playerName != "") game.addMessage(game.messageInput.value);
-    })
+    });
+
+    document.getElementById("introScreen").addEventListener("animationend", function() {
+        document.getElementById("introScreen").style.display = "none";
+        document.getElementById("gameScreen").style.display = "block";
+    }, false);
 }

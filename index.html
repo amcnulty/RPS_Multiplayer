@@ -13,60 +13,63 @@
     <script src="https://www.gstatic.com/firebasejs/4.5.0/firebase.js"></script>
 </head>
 <body>
-    <header>
-        <h1>RPS Multiplayer</h1>
-    </header>
-    <div id="addPlayerDiv">
-        <form id="addPlayerForm">
-            <input type="text" id="newPlayerInput" placeholder="Enter Your Name" maxlength="12">
-            <input type="submit" id="newPlayerSubmitButton" value="JOIN">
-        </form>
-        <h2 id="infoMessage"></h2>
-    </div>
-    <div id="playerDiv">
-        <div class="playerBox" id="playerOneBox">
-            <h3 class="playerName" id="playerOneName">Waiting or player 1</h3>
-            <p class="moveSelection" id="playerOneRock">Rock</p>
-            <br>
-            <p class="moveSelection" id="playerOnePaper">Paper</p>
-            <br>
-            <p class="moveSelection" id="playerOneScissors">Scissors</p>
-            <br>
-            <p class="moveSelection" id="playerOneLizard">Lizard</p>
-            <br>
-            <p class="moveSelection" id="playerOneSpock">Spock</p>
-            <p class="moveChoice" id="playerOneMoveChoice">Rock</p>
-            <p id="playerOneWinLoss" class="winLoss">Wins: <span id="playerOneWins"></span> Losses: <span id="playerOneLosses"></span></p>
+    <div id="introScreen"></div>
+    <div id="gameScreen">
+        <header>
+            <h1>RPS Multiplayer</h1>
+        </header>
+        <div id="addPlayerDiv">
+            <form id="addPlayerForm">
+                <input type="text" id="newPlayerInput" placeholder="Enter Your Name" maxlength="12">
+                <input type="submit" id="newPlayerSubmitButton" value="JOIN">
+            </form>
+            <h2 id="infoMessage"></h2>
         </div>
-        <div class="playerBox" id="InfoBox">
-            <p id="victoryMessage"></p>
+        <div id="playerDiv">
+            <div class="playerBox" id="playerOneBox">
+                <h3 class="playerName" id="playerOneName">Waiting or player 1</h3>
+                <p class="moveSelection" id="playerOneRock">Rock</p>
+                <br>
+                <p class="moveSelection" id="playerOnePaper">Paper</p>
+                <br>
+                <p class="moveSelection" id="playerOneScissors">Scissors</p>
+                <br>
+                <p class="moveSelection" id="playerOneLizard">Lizard</p>
+                <br>
+                <p class="moveSelection" id="playerOneSpock">Spock</p>
+                <p class="moveChoice" id="playerOneMoveChoice">Rock</p>
+                <p id="playerOneWinLoss" class="winLoss">Wins: <span id="playerOneWins"></span> Losses: <span id="playerOneLosses"></span></p>
+            </div>
+            <div class="playerBox" id="InfoBox">
+                <p id="victoryMessage"></p>
+            </div>
+            <div class="playerBox" id="playerTwoBox">
+                <h3 class="playerName" id="playerTwoName">Waiting for player 2</h3>
+                <p class="moveSelection" id="playerTwoRock">Rock</p>
+                <br>
+                <p class="moveSelection" id="playerTwoPaper">Paper</p>
+                <br>
+                <p class="moveSelection" id="playerTwoScissors">Scissors</p>
+                <br>
+                <p class="moveSelection" id="playerTwoLizard">Lizard</p>
+                <br>
+                <p class="moveSelection" id="playerTwoSpock">Spock</p>
+                <p class="moveChoice" id="playerTwoMoveChoice"></p>
+                <p id="playerTwoWinLoss" class="winLoss">Wins: <span id="playerTwoWins"></span> Losses: <span id="playerTwoLosses"></span></p>
+            </div>
         </div>
-        <div class="playerBox" id="playerTwoBox">
-            <h3 class="playerName" id="playerTwoName">Waiting for player 2</h3>
-            <p class="moveSelection" id="playerTwoRock">Rock</p>
-            <br>
-            <p class="moveSelection" id="playerTwoPaper">Paper</p>
-            <br>
-            <p class="moveSelection" id="playerTwoScissors">Scissors</p>
-            <br>
-            <p class="moveSelection" id="playerTwoLizard">Lizard</p>
-            <br>
-            <p class="moveSelection" id="playerTwoSpock">Spock</p>
-            <p class="moveChoice" id="playerTwoMoveChoice"></p>
-            <p id="playerTwoWinLoss" class="winLoss">Wins: <span id="playerTwoWins"></span> Losses: <span id="playerTwoLosses"></span></p>
+        <div id="messageDiv">
+            <form id="messagePlayerForm">
+                <textarea name="messages" id="messages" cols="30" rows="10" readonly></textarea>
+                <br>
+                <input type="text" id="messageInput" placeholder="Message Player...">
+                <input type="submit" value="Send" id="sendMessageSubmitButton">
+            </form>
         </div>
+        <footer>
+            <p>&copy; RPS Multiplayer &amp; Monkey Stomp Games 2017</p>
+        </footer>
     </div>
-    <div id="messageDiv">
-        <form id="messagePlayerForm">
-            <textarea name="messages" id="messages" cols="30" rows="10" readonly></textarea>
-            <br>
-            <input type="text" id="messageInput" placeholder="Message Player...">
-            <input type="submit" value="Send" id="sendMessageSubmitButton">
-        </form>
-    </div>
-    <footer>
-        <p>&copy; RPS Multiplayer &amp; Monkey Stomp Games 2017</p>
-    </footer>
     <script src="assets/javascript/game.js" type="text/javascript"></script>
 </body>
 </html>

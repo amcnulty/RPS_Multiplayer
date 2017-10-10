@@ -13,6 +13,52 @@ input, textarea, select {
     border-radius:0;
  }
 
+#gameScreen {
+    display: none;
+}
+
+ #introScreen {
+    width: 100%;
+    height: 100vh;
+    /* background: url("../images/background/words.png") center center no-repeat; */
+    /* background-size: contain; */
+    animation: 6s linear intro;
+}
+
+@keyframes intro {
+    0% {
+        transform: scale(0);
+        background: url("../images/background/words.png") center center no-repeat;
+        background-size: contain;
+    }
+    7% {
+        transform: scale(1);
+    }
+    43% {
+        transform: scale(1);
+    }
+    50% {
+        transform: scale(0);
+        background: url("../images/background/words.png") center center no-repeat;
+        background-size: contain;
+    }
+    51% {
+        background: url("../images/background/diagram.png") center center no-repeat;
+        background-size: contain;
+    }
+    57% {
+        transform: scale(1);
+    }
+    93% {
+        transform: scale(1);
+    }
+    100% {
+        transform: scale(0);
+        background: url("../images/background/diagram.png") center center no-repeat;
+        background-size: contain;
+    }
+}
+
 header {
     width: 100%;
     height: 60px;
