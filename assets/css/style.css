@@ -96,6 +96,10 @@ h1 {
     border-color: #FBA100;
 }
 
+.playerName {
+    margin: 8px 0px 8px 0px;
+}
+
 .moveSelection {
     display: none;
     margin: 5px;
@@ -125,7 +129,8 @@ h1 {
 .winLoss {
     display: none;
     position: absolute;
-    bottom: 0px;
+    margin: 0px;
+    bottom: 5px;
     left: 50%;
     -webkit-transform: translateX(-50%);
     -moz-transform: translateX(-50%);

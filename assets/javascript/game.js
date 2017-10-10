@@ -3,11 +3,26 @@ else if (window.addEventListener) {window.addEventListener('load', load, false);
 else {document.addEventListener('load', load, false);}
 function load() {
     var choices = {
-        Rock: {defeates: ["Scissors", "Lizard"]},
-        Paper: {defeates: ["Rock", "Spock"]},
-        Scissors: {defeates: ["Paper", "Lizard"]},
-        Lizard: {defeates: ["Spock", "Paper"]},
-        Spock: {defeates: ["Scissors", "Rock"]}
+        Rock: {
+            defeates: ["Scissors", "Lizard"],
+            message: ["Rock crushes scissors", "Rock crushes lizard"]
+        },
+        Paper: {
+            defeates: ["Rock", "Spock"],
+            message: ["Paper covers rock", "Paper disproves Spock"]
+        },
+        Scissors: {
+            defeates: ["Paper", "Lizard"],
+            message: ["Scissors cuts paper", "Scissors decapitates lizard"]
+        },
+        Lizard: {
+            defeates: ["Spock", "Paper"],
+            message: ["Lizard poisons Spock", "Lizard eats paper"]
+        },
+        Spock: {
+            defeates: ["Scissors", "Rock"],
+            message: ["Spock smashes scissors", "Spock vaporizes rock"]
+        }
     }
 
     var config = {
@@ -52,7 +67,6 @@ function load() {
                         game.playerTwoMoveChoice.innerHTML = snapshot.val().two.choice;
                         game.playerTwoMoveChoice.style.display = "block";
                         game.wins = snapshot.val().one.wins;
-                        game.victoryMessage.innerHTML = "You Won!";
                         game.victoryMessage.style.display = "block";
                         setTimeout(function() {
                             game.victoryMessage.style.display = "none";
@@ -64,7 +78,6 @@ function load() {
                         game.playerTwoMoveChoice.innerHTML = snapshot.val().two.choice;
                         game.playerTwoMoveChoice.style.display = "block";
                         game.losses = snapshot.val().one.losses;
-                        game.victoryMessage.innerHTML = snapshot.val().two.name + " won!";
                         game.victoryMessage.style.display = "block";
                         setTimeout(function() {
                             game.victoryMessage.style.display = "none";
@@ -91,7 +104,6 @@ function load() {
                         game.playerOneMoveChoice.innerHTML = snapshot.val().one.choice;
                         game.playerOneMoveChoice.style.display = "block";
                         game.wins = snapshot.val().two.wins;
-                        game.victoryMessage.innerHTML = "You Won!";
                         game.victoryMessage.style.display = "block";
                         setTimeout(function() {
                             game.victoryMessage.style.display = "none";
@@ -103,7 +115,6 @@ function load() {
                         game.playerOneMoveChoice.innerHTML = snapshot.val().one.choice;
                         game.playerOneMoveChoice.style.display = "block";
                         game.losses = snapshot.val().two.losses;
-                        game.victoryMessage.innerHTML = snapshot.val().one.name + " won!";
                         game.victoryMessage.style.display = "block";
                         setTimeout(function() {
                             game.victoryMessage.style.display = "none";
@@ -199,6 +210,8 @@ function load() {
         playerOneRock: document.getElementById("playerOneRock"),
         playerOnePaper: document.getElementById("playerOnePaper"),
         playerOneScissors: document.getElementById("playerOneScissors"),
+        playerOneLizard: document.getElementById("playerOneLizard"),
+        playerOneSpock: document.getElementById("playerOneSpock"),
         playerOneMoveChoice: document.getElementById("playerOneMoveChoice"),
         playerOneWinLoss: document.getElementById("playerOneWinLoss"),
         playerOneWins: document.getElementById("playerOneWins"),
@@ -208,6 +221,8 @@ function load() {
         playerTwoRock: document.getElementById("playerTwoRock"),
         playerTwoPaper: document.getElementById("playerTwoPaper"),
         playerTwoScissors: document.getElementById("playerTwoScissors"),
+        playerTwoLizard: document.getElementById("playerTwoLizard"),
+        playerTwoSpock: document.getElementById("playerTwoSpock"),
         playerTwoMoveChoice: document.getElementById("playerTwoMoveChoice"),
         playerTwoWinLoss: document.getElementById("playerTwoWinLoss"),
         playerTwoWins: document.getElementById("playerTwoWins"),
@@ -293,12 +308,16 @@ function load() {
                 game.playerOneRock.style.display = "inline-block";
                 game.playerOnePaper.style.display = "inline-block";
                 game.playerOneScissors.style.display = "inline-block";
+                game.playerOneLizard.style.display = "inline-block";
+                game.playerOneSpock.style.display = "inline-block";
                 game.playerOneMoveChoice.style.display = "none";
             }
             else {
-                game.playerTwoRock.style.display = "block";
-                game.playerTwoPaper.style.display = "block";
-                game.playerTwoScissors.style.display = "block";
+                game.playerTwoRock.style.display = "inline-block";
+                game.playerTwoPaper.style.display = "inline-block";
+                game.playerTwoScissors.style.display = "inline-block";
+                game.playerTwoLizard.style.display = "inline-block";
+                game.playerTwoSpock.style.display = "inline-block";
                 game.playerTwoMoveChoice.style.display = "none";
             }
         },
@@ -307,6 +326,8 @@ function load() {
                 game.playerOneRock.style.display = "none";
                 game.playerOnePaper.style.display = "none";
                 game.playerOneScissors.style.display = "none";
+                game.playerOneLizard.style.display = "none";
+                game.playerOneSpock.style.display = "none";
                 game.playerOneMoveChoice.style.display = "block";
                 game.playerOneMoveChoice.innerHTML = choice;
             }
@@ -314,6 +335,8 @@ function load() {
                 game.playerTwoRock.style.display = "none";
                 game.playerTwoPaper.style.display = "none";
                 game.playerTwoScissors.style.display = "none";
+                game.playerTwoLizard.style.display = "none";
+                game.playerTwoSpock.style.display = "none";
                 game.playerTwoMoveChoice.style.display = "block";
                 game.playerTwoMoveChoice.innerHTML = choice;
             }
@@ -345,11 +368,12 @@ function load() {
                 var p2Choice = snapshot.val().two.choice;
                 if (p1Choice === p2Choice) game.changeScore(-1);
                 else {
-                    var userChoice = choices[p1Choice];
-                    if (userChoice.defeates.indexOf(p2Choice) > -1) {
+                    if (choices[p1Choice].defeates.indexOf(p2Choice) > -1) {
+                        game.victoryMessage.innerHTML = choices[p1Choice].message[choices[p1Choice].defeates.indexOf(p2Choice)];
                         game.changeScore(1);
                     }
-                    else {
+                    else if (choices[p2Choice].defeates.indexOf(p1Choice) > -1) {
+                        game.victoryMessage.innerHTML = choices[p2Choice].message[choices[p2Choice].defeates.indexOf(p1Choice)];
                         game.changeScore(2);
                     }
                 }

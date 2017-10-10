@@ -1,12 +1,12 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <title>RPS Multiplayer | A network game of rock paper scissors</title>
+    <title>RPS Multiplayer | A network game of rock paper scissors lizard Spock</title>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <meta name="author" content="Aaron Michael McNulty">
-    <meta name="description" content="A network game of rock paper scissors for web browsers.">
+    <meta name="description" content="A network game of rock paper scissors lizard Spock for web browsers.">
     <link rel="shortcut icon" href="assets/images/icon/favicon.ico" type="image/x-icon">
     <link rel="stylesheet" type="text/css" href="assets/css/style.css">
     <script src="https://code.jquery.com/jquery-3.2.1.min.js" integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4=" crossorigin="anonymous"></script>
@@ -31,6 +31,10 @@
             <p class="moveSelection" id="playerOnePaper">Paper</p>
             <br>
             <p class="moveSelection" id="playerOneScissors">Scissors</p>
+            <br>
+            <p class="moveSelection" id="playerOneLizard">Lizard</p>
+            <br>
+            <p class="moveSelection" id="playerOneSpock">Spock</p>
             <p class="moveChoice" id="playerOneMoveChoice">Rock</p>
             <p id="playerOneWinLoss" class="winLoss">Wins: <span id="playerOneWins"></span> Losses: <span id="playerOneLosses"></span></p>
         </div>
@@ -40,8 +44,14 @@
         <div class="playerBox" id="playerTwoBox">
             <h3 class="playerName" id="playerTwoName">Waiting for player 2</h3>
             <p class="moveSelection" id="playerTwoRock">Rock</p>
+            <br>
             <p class="moveSelection" id="playerTwoPaper">Paper</p>
+            <br>
             <p class="moveSelection" id="playerTwoScissors">Scissors</p>
+            <br>
+            <p class="moveSelection" id="playerTwoLizard">Lizard</p>
+            <br>
+            <p class="moveSelection" id="playerTwoSpock">Spock</p>
             <p class="moveChoice" id="playerTwoMoveChoice"></p>
             <p id="playerTwoWinLoss" class="winLoss">Wins: <span id="playerTwoWins"></span> Losses: <span id="playerTwoLosses"></span></p>
         </div>
