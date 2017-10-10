@@ -3,9 +3,11 @@ else if (window.addEventListener) {window.addEventListener('load', load, false);
 else {document.addEventListener('load', load, false);}
 function load() {
     var choices = {
-        Rock: {defeates: ["Scissors"]},
-        Paper: {defeates: ["Rock"]},
-        Scissors: {defeates: ["Paper"]}
+        Rock: {defeates: ["Scissors", "Lizard"]},
+        Paper: {defeates: ["Rock", "Spock"]},
+        Scissors: {defeates: ["Paper", "Lizard"]},
+        Lizard: {defeates: ["Spock", "Paper"]},
+        Spock: {defeates: ["Scissors", "Rock"]}
     }
 
     var config = {
