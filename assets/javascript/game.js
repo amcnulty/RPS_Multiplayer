@@ -67,6 +67,7 @@ function load() {
                         game.playerTwoMoveChoice.innerHTML = snapshot.val().two.choice;
                         game.playerTwoMoveChoice.style.display = "block";
                         game.wins = snapshot.val().one.wins;
+                        game.displayMessage(snapshot.val().one.choice, snapshot.val().two.choice);
                         game.victoryMessage.style.display = "block";
                         setTimeout(function() {
                             game.victoryMessage.style.display = "none";
@@ -78,6 +79,7 @@ function load() {
                         game.playerTwoMoveChoice.innerHTML = snapshot.val().two.choice;
                         game.playerTwoMoveChoice.style.display = "block";
                         game.losses = snapshot.val().one.losses;
+                        game.displayMessage(snapshot.val().one.choice, snapshot.val().two.choice);
                         game.victoryMessage.style.display = "block";
                         setTimeout(function() {
                             game.victoryMessage.style.display = "none";
@@ -104,6 +106,7 @@ function load() {
                         game.playerOneMoveChoice.innerHTML = snapshot.val().one.choice;
                         game.playerOneMoveChoice.style.display = "block";
                         game.wins = snapshot.val().two.wins;
+                        game.displayMessage(snapshot.val().one.choice, snapshot.val().two.choice);
                         game.victoryMessage.style.display = "block";
                         setTimeout(function() {
                             game.victoryMessage.style.display = "none";
@@ -115,6 +118,7 @@ function load() {
                         game.playerOneMoveChoice.innerHTML = snapshot.val().one.choice;
                         game.playerOneMoveChoice.style.display = "block";
                         game.losses = snapshot.val().two.losses;
+                        game.displayMessage(snapshot.val().one.choice, snapshot.val().two.choice);
                         game.victoryMessage.style.display = "block";
                         setTimeout(function() {
                             game.victoryMessage.style.display = "none";
@@ -369,11 +373,9 @@ function load() {
                 if (p1Choice === p2Choice) game.changeScore(-1);
                 else {
                     if (choices[p1Choice].defeates.indexOf(p2Choice) > -1) {
-                        game.victoryMessage.innerHTML = choices[p1Choice].message[choices[p1Choice].defeates.indexOf(p2Choice)];
                         game.changeScore(1);
                     }
                     else if (choices[p2Choice].defeates.indexOf(p1Choice) > -1) {
-                        game.victoryMessage.innerHTML = choices[p2Choice].message[choices[p2Choice].defeates.indexOf(p1Choice)];
                         game.changeScore(2);
                     }
                 }
@@ -420,6 +422,14 @@ function load() {
             database.ref("chat").update({
                 latest: userMessage
             })
+        },
+        displayMessage: function(p1Choice, p2Choice) {
+            if (choices[p1Choice].defeates.indexOf(p2Choice) > -1) {
+                game.victoryMessage.innerHTML = choices[p1Choice].message[choices[p1Choice].defeates.indexOf(p2Choice)];
+            }
+            else if (choices[p2Choice].defeates.indexOf(p1Choice) > -1) {
+                game.victoryMessage.innerHTML = choices[p2Choice].message[choices[p2Choice].defeates.indexOf(p1Choice)];
+            }
         }
     }
     
