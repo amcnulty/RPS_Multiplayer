@@ -1,4 +1,4 @@
-// Pink Trivia 2017
+// RPS Multiplayer 2017
 // By: Aaron Michael McNulty
 // Monkey Stomp Games 2017
 //
