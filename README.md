@@ -1,5 +1,5 @@
 # RPS_Multiplayer
-An online game of rock paper scissors for web browsers. This is a two player game formated for desktop and mobile. There is also messaging functionality included in the game. The game uses a Firebase database for storing data.
+An online game of rock paper scissors lizard Spock for web browsers. This is a two player game formated for desktop and mobile. There is also messaging functionality included in the game. The game uses a Firebase database for storing data.
 
 ## Open For Peer Review
 <h3>All code is open for peer review. All comments in code are to explain what the code is doing.</h3>
@@ -13,7 +13,7 @@ An online game of rock paper scissors for web browsers. This is a two player gam
 This game uses a Firebase database for creating the network aspect of the game. This allows two users to log in and play rounds versus each other live from any web browser. I have added a link to the Firebase documentation at the bottom of this readme.
 
 ## Objectives
-1. Create a game of rock paper scissors.
+1. Create a game of rock paper scissors lizard Spock.
 2. Make the game a two player network game.
 3. Have the game track the users wins and losses as they are playing.
 4. Add chat functionality to the game so users can send messages to one another.
@@ -21,5 +21,5 @@ This game uses a Firebase database for creating the network aspect of the game. 
 6. Make the game cross browser supported and optimized for mobile browsers.
 
 ## Links
-* [RPS Multiplayer Link](https://amcnulty.github.io/RPS_Multiplayer/ "A network game of rock paper scissors")
+* [RPS Multiplayer Link](https://amcnulty.github.io/RPS_Multiplayer/ "A network game of rock paper scissors lizard Spock")
 * [Firebase Documentation](https://firebase.google.com/docs/ "Firebase | Documentation")
